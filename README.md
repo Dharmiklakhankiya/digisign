@@ -14,7 +14,7 @@ A simple yet powerful digital signature tool built for a cryptography and networ
 
 - Node.js and Express for the backend server
 - Vanilla JavaScript for the frontend
-- MongoDB for storing signature information
+- MongoDB Atlas for cloud database storage
 - Native Node.js crypto module for cryptographic operations
 
 ## Installation
@@ -30,11 +30,17 @@ A simple yet powerful digital signature tool built for a cryptography and networ
    npm install
    ```
 
-3. Ensure MongoDB is running on your system
-   ```
-   # Start MongoDB (may vary based on your installation)
-   mongod
-   ```
+3. MongoDB Atlas Setup
+   - Create a MongoDB Atlas account at https://www.mongodb.com/cloud/atlas
+   - Create a new cluster
+   - Click on "Connect" and select "Connect your application"
+   - Copy the connection string
+   - Create a `.env` file in the project root (see `.env.example`)
+   - Add your MongoDB Atlas connection string to the `.env` file:
+     ```
+     MONGODB_URI=mongodb+srv://<username>:<password>@<cluster>.mongodb.net/digisign?retryWrites=true&w=majority
+     PORT=3000
+     ```
 
 4. Start the application
    ```

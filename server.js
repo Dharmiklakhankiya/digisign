@@ -5,6 +5,8 @@ const multer = require('multer');
 const path = require('path');
 const crypto = require('crypto');
 const fs = require('fs');
+// Add dotenv for environment variables
+require('dotenv').config();
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -15,9 +17,17 @@ app.use(express.json());
 app.use(express.static('public')); 
 
 
-mongoose.connect('mongodb://localhost:27017/digisign')
-    .then(() => console.log('Connected to MongoDB'))
-    .catch(err => console.error('MongoDB connection error:', err));
+// Replace local MongoDB connection with MongoDB Atlas connection
+const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/digisign';
+
+mongoose.connect(MONGODB_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    // These options are no longer needed in newer versions of Mongoose,
+    // but included for compatibility with older versions
+})
+    .then(() => console.log('Connected to MongoDB Atlas'))
+    .catch(err => console.error('MongoDB Atlas connection error:', err));
 
 
 const storage = multer.diskStorage({
