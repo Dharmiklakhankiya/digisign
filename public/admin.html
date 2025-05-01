@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DigiSign - Admin Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>DigiSign Admin</h1>
+        <p>Manage Signed Documents</p>
+    </header>
+
+    <div class="container" style="flex-direction: column;"> 
+        <div class="content-area" style="width: 100%; margin-top: 20px;"> 
+            <div id="admin-dashboard" class="tab-content active"> 
+                <h2>Signature Management</h2>
+                <p>View and delete existing signature records.</p>
+                <button id="refresh-signatures" class="secondary-btn">Refresh List</button>
+                <div class="table-container">
+                    <table id="signatures-table">
+                        <thead>
+                            <tr>
+                                <th>Document/Text Name</th>
+                                <th>Date Created</th>
+                                <th>Hash</th>
+                                <th>Signature ID</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="signatures-table-body">
+                            
+                            <tr><td colspan="5" style="text-align: center;">Loading signatures...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>DigiSign - Admin Panel</p>
+        <p class="created-by">Created by:<br>DharmikKumar Lakhankiya<br>Shreevee Kasodariya<br>Prakriti Panchal</p>
+    </footer>
+
+    <div id="notification" class="notification hidden"></div>
+
+    <script src="admin.js"></script>
+</body>
+</html>

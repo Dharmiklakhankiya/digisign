@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DigiSign - Digital Signature Tool</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>DigiSign</h1>
+        <p>A Digital Signature Tool for Cryptography and Network Security</p>
+    </header>
+
+    <div class="container">
+        <div class="tab-container">
+            <div class="tabs">
+                <button class="tab-btn active" data-tab="key-generator">Key Generator</button>
+                <button class="tab-btn" data-tab="file-sign">File Signing</button>
+                <button class="tab-btn" data-tab="text-sign">Text Signing</button>
+                <button class="tab-btn" data-tab="verify">Verification</button>
+                <button class="tab-btn" data-tab="history">History</button>
+            </div>
+        </div>
+
+        <div class="content-area">
+            <div id="key-generator" class="tab-content active">
+                <h2>Generate Key Pair</h2>
+                <p>Generate a new RSA key pair for signing documents and messages</p>
+                <button id="generate-keys-btn" class="primary-btn">Generate Keys</button>
+                <div id="keys-display" class="hidden">
+                    <div class="key-section">
+                        <h3>Public Key</h3>
+                        <textarea id="public-key" readonly></textarea>
+                        <button class="copy-btn" data-target="public-key">Copy</button>
+                        <button class="download-btn" data-content="public-key" data-filename="public_key.pem">Download</button>
+                    </div>
+                    <div class="key-section">
+                        <h3>Private Key (Keep Secret!)</h3>
+                        <textarea id="private-key" readonly></textarea>
+                        <button class="copy-btn" data-target="private-key">Copy</button>
+                        <button class="download-btn" data-content="private-key" data-filename="private_key.pem">Download</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="file-sign" class="tab-content">
+                <h2>Sign a File</h2>
+                <p>Upload a file and sign it with your private key</p>
+                <form id="file-sign-form">
+                    <div class="form-group">
+                        <label for="file-to-sign">Select File:</label>
+                        <input type="file" id="file-to-sign" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="private-key-sign">Private Key:</label>
+                        <textarea id="private-key-sign" placeholder="Paste your private key here" required></textarea>
+                    </div>
+                    <button type="submit" class="primary-btn">Sign File</button>
+                </form>
+                <div id="file-signature-result" class="result-container hidden">
+                    <h3>Signature Created!</h3>
+                    <div class="result-group">
+                        <label>Document Hash:</label>
+                        <input type="text" id="file-hash-result" readonly>
+                        <button class="copy-btn" data-target="file-hash-result">Copy</button>
+                    </div>
+                    <div class="result-group">
+                        <label>Digital Signature:</label>
+                        <textarea id="file-signature" readonly></textarea>
+                        <button class="copy-btn" data-target="file-signature">Copy</button>
+                        <button class="download-btn" data-content="file-signature" data-filename="signature.txt">Download</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="text-sign" class="tab-content">
+                <h2>Sign a Text Message</h2>
+                <p>Enter text and sign it with your private key</p>
+                <form id="text-sign-form">
+                    <div class="form-group">
+                        <label for="text-to-sign">Message:</label>
+                        <textarea id="text-to-sign" placeholder="Enter the text you want to sign" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="private-key-text">Private Key:</label>
+                        <textarea id="private-key-text" placeholder="Paste your private key here" required></textarea>
+                    </div>
+                    <button type="submit" class="primary-btn">Sign Text</button>
+                </form>
+                <div id="text-signature-result" class="result-container hidden">
+                    <h3>Text Signature Created!</h3>
+                    <div class="result-group">
+                        <label>Text Hash:</label>
+                        <input type="text" id="text-hash-result" readonly>
+                        <button class="copy-btn" data-target="text-hash-result">Copy</button>
+                    </div>
+                    <div class="result-group">
+                        <label>Digital Signature:</label>
+                        <textarea id="text-signature" readonly></textarea>
+                        <button class="copy-btn" data-target="text-signature">Copy</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="verify" class="tab-content">
+                <h2>Verify Signature</h2>
+                <div class="verify-tabs">
+                    <button class="verify-tab-btn active" data-verify-tab="verify-file">Verify File</button>
+                    <button class="verify-tab-btn" data-verify-tab="verify-text">Verify Text</button>
+                </div>
+                
+                <div id="verify-file" class="verify-content active">
+                    <p>Verify a file's signature with the signer's public key</p>
+                    <form id="verify-file-form">
+                        <div class="form-group">
+                            <label for="file-to-verify">Select File:</label>
+                            <input type="file" id="file-to-verify" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="file-signature-verify">Digital Signature:</label>
+                            <textarea id="file-signature-verify" placeholder="Paste the signature here" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="public-key-verify">Public Key:</label>
+                            <textarea id="public-key-verify" placeholder="Paste the signer's public key here" required></textarea>
+                        </div>
+                        <button type="submit" class="primary-btn">Verify File</button>
+                    </form>
+                </div>
+                
+                <div id="verify-text" class="verify-content">
+                    <p>Verify a text message's signature with the signer's public key</p>
+                    <form id="verify-text-form">
+                        <div class="form-group">
+                            <label for="text-to-verify">Message:</label>
+                            <textarea id="text-to-verify" placeholder="Enter the original text message" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="text-signature-verify">Digital Signature:</label>
+                            <textarea id="text-signature-verify" placeholder="Paste the signature here" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="public-key-text-verify">Public Key:</label>
+                            <textarea id="public-key-text-verify" placeholder="Paste the signer's public key here" required></textarea>
+                        </div>
+                        <button type="submit" class="primary-btn">Verify Text</button>
+                    </form>
+                </div>
+                
+                <div id="verification-result" class="result-container hidden">
+                    <div id="verification-success" class="verification-status hidden">
+                        <h3>✅ Signature Valid</h3>
+                        <p>This signature is authentic and the content has not been modified.</p>
+                    </div>
+                    <div id="verification-failure" class="verification-status hidden">
+                        <h3>❌ Signature Invalid</h3>
+                        <p>This signature is NOT authentic or the content has been modified.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="history" class="tab-content">
+                <h2>Signature History</h2>
+                <p>View previously created signatures</p>
+                <button id="refresh-history" class="secondary-btn">Refresh</button>
+                <div class="table-container">
+                    <table id="history-table">
+                        <thead>
+                            <tr>
+                                <th>Document/Text</th>
+                                <th>Date Created</th>
+                                <th>Hash</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="history-table-body">
+                            
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>DigiSign - A demo showcasing document and text signing</p>
+        <p class="created-by">Created by DharmikKumar Lakhankiya></p>
+    </footer>
+
+    <div id="notification" class="notification hidden"></div>
+
+    <script src="app.js"></script>
+</body>
+</html>
