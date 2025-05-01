@@ -8,7 +8,6 @@ const fs = require('fs');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
-const HTTPS_PORT = process.env.HTTPS_PORT || 3443; 
 
 
 app.use(cors());
@@ -62,15 +61,8 @@ app.use((err, req, res, next) => {
 
 
 app.listen(PORT, () => {
-    console.log(`HTTP Server running on port ${PORT}`);
+    console.log(`Server running on port ${PORT}`);
 });
 
-
-if (httpsOptions) {
-    https.createServer(httpsOptions, app).listen(HTTPS_PORT, () => {
-        console.log(`HTTPS Server running on port ${HTTPS_PORT}`);
-        console.log(`Access via https://localhost:${HTTPS_PORT}`);
-    });
-}
 
 module.exports = app;

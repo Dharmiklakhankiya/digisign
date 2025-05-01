@@ -69,9 +69,6 @@ router.post('/sign', upload.single('document'), async (req, res) => {
         const documentHash = await calculateFileHash(filePath);
         const signature = signData(documentHash, privateKey);
         
-        
-        
-        
         const { publicKey } = generateKeyPair();
         
         
